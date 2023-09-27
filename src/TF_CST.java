@@ -2,9 +2,15 @@ import java.util.Scanner;
 
 public class TF_CST {
     public static void main(String[] args) {
-        int opcion;
-        int contadorRegistros = 0;
         Scanner scanner = new Scanner(System.in);
+        int opcion;
+        int contadorSeleccionRegistrar = 0;
+        int contadorSeleccionConsultar = 0;
+        int contadorSeleccionConsolidar = 0;
+        //int contadorSeleccionSalir = 0;
+        int contadorRegistros = 0;
+        String respuesta;
+
         String[] dni = new String[100];
         String[] nombre = new String[100];
         String[] apellidoPaterno = new String[100];
@@ -12,29 +18,88 @@ public class TF_CST {
         int[] tipoHorario = new int[100];
         String[] horaSalidaReal = new String[100];
         String[] fechaRegistro = new String[100];
-        String[] dniVirtual = new String[100];
+        String[] dniVirtual = {"71642745","71642747"};
 
         do {
+            System.out.println("Menú Principal:");
+            System.out.println("1. Registrar");
+            System.out.println("2. Consultar");
+            System.out.println("3. Consolidar");
+            System.out.println("5. Salir");
             System.out.print("Seleccione una opción: ");
             opcion = scanner.nextInt();
 
             switch (opcion) {
                 case 1:
-                    registrarDatos(dni, nombre, apellidoPaterno, apellidoMaterno,
-                            tipoHorario, horaSalidaReal, fechaRegistro,
-                            contadorRegistros, dniVirtual);
+                    System.out.println(" ");
+                    System.out.println("-------------------------------");
+                    System.out.println("---------- Registrar ----------");
+                    System.out.println("-------------------------------");
+                    contadorSeleccionRegistrar++;
+                    registrarDatos(dni, nombre, apellidoPaterno, apellidoMaterno, tipoHorario, horaSalidaReal, fechaRegistro, contadorRegistros, dniVirtual);
                     contadorRegistros++;
+                    //System.out.println("Lo registraso"+ Arrays.toString(dni));
+                    //System.out.println("Lo registraso"+ Arrays.toString(nombre));
+                    //System.out.println("Lo registraso"+ Arrays.toString(fechaRegistro));
+                    System.out.println("-------------------------------");
+                    System.out.println("    Registrado Exitosamente.   ");
+                    System.out.println("-------------------------------");
+                    //System.out.println("Registrado Exitosamente.");
+                    System.out.print("Desea retornar al menu principal (s/n): ");
+                    respuesta = scanner.next();
+                    if (respuesta.equals("n")){
+                        System.out.println();
+                        System.out.println("------------------------------");
+                        System.out.println("---------- Saliendo ----------");
+                        System.out.println("------------------------------");
+                        return;
+                    }
                     break;
 
                 case 2:
-                    consultarDatos(dni, nombre, apellidoPaterno, apellidoMaterno,
-                            tipoHorario, horaSalidaReal, fechaRegistro,
-                            contadorRegistros);
+                    System.out.println();
+                    System.out.println("-------------------------------");
+                    System.out.println("---------- Consultar ----------");
+                    System.out.println("-------------------------------");
+                    contadorSeleccionConsultar++;
+                    consultarDatos(dni, nombre, apellidoPaterno, apellidoMaterno, tipoHorario, horaSalidaReal, fechaRegistro, contadorRegistros);
+                    System.out.println("-------------------------------");
+                    System.out.print("Desea retornar al menu principal (s/n): ");
+                    respuesta = scanner.next();
+                    if (respuesta.equals("n")){
+                        System.out.println();
+                        System.out.println("------------------------------");
+                        System.out.println("---------- Saliendo ----------");
+                        System.out.println("------------------------------");
+                        return;
+                    }
                     break;
+
                 case 3:
-                    consolidarSobretiempo(dni, nombre, apellidoPaterno, apellidoMaterno,
-                            tipoHorario, horaSalidaReal, fechaRegistro,
-                            contadorRegistros);
+                    System.out.println();
+                    System.out.println("--------------------------------");
+                    System.out.println("---------- Consolidar ----------");
+                    System.out.println("--------------------------------");
+                    contadorSeleccionConsolidar++;
+                    consolidarSobretiempo(dni, nombre, apellidoPaterno, apellidoMaterno, tipoHorario, horaSalidaReal, fechaRegistro, contadorRegistros);
+                    System.out.println("-------------------------------");
+                    System.out.print("Desea retornar al menu principal (s/n): ");
+                    respuesta = scanner.next();
+                    if (respuesta.equals("n")){
+                        System.out.println();
+                        System.out.println("------------------------------");
+                        System.out.println("---------- Saliendo ----------");
+                        System.out.println("------------------------------");
+                        return;
+                    }
+                    break;
+
+                case 5:
+                    //contadorSeleccionSalir++;
+                    System.out.println();
+                    System.out.println("------------------------------");
+                    System.out.println("---------- Saliendo ----------");
+                    System.out.println("------------------------------");
                     break;
 
                 default:
@@ -42,8 +107,17 @@ public class TF_CST {
                     break;
             }
         } while (opcion != 5);
+        System.out.println();
+        System.out.println("-----------------------------");
+        System.out.println("---------- Resumen ----------");
+        System.out.println("-----------------------------");
+        System.out.println("Veces seleccionado Registrar: " + contadorSeleccionRegistrar);
+        System.out.println("Veces seleccionado Consultar: " + contadorSeleccionConsultar);
+        System.out.println("Veces seleccionado Consolidar: " + contadorSeleccionConsolidar);
+        //System.out.println("Veces seleccionado Salir: " + contadorSeleccionSalir);
 
     }
+
 
 
     static void registrarDatos(
@@ -173,6 +247,8 @@ public class TF_CST {
         int minutos = Integer.parseInt(horaSalidaReal.substring(3,5));
         int horareal = hora * 60 + minutos;
 
+        //int horareal = (Integer.parseInt(horaSalidaReal.substring(0,2)) * 60 ) + Integer.parseInt(horaSalidaReal.substring(3,5));
+
         if (horareal > horaSalidaTeorica) {
             return horareal - horaSalidaTeorica;
         } else {
@@ -192,8 +268,28 @@ public class TF_CST {
             String[] fechaRegistro,
             int contadorRegistros
     ) {
-        System.out.println("Se ha consolidado la informacion.");
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese DNI a consultar: ");
+        String dniConsulta = scanner.next();
+        System.out.print("Ingrese el mes (MM) a consolidar: ");
+        String mesConsolidar = scanner.next();
+        int totalSobretiempo = 0;
+        String nombreCompleto = "" ;
+        for (int i = 0; i < contadorRegistros; i++) {
+            String mesRegistro = fechaRegistro[i].substring(5, 7);
+            if (mesRegistro.equals(mesConsolidar) && dni[i].equals(dniConsulta)) {
+                int sobretiempo = calcularSobretiempo(tipoHorario[i], horaSalidaReal[i]);
+                if (sobretiempo > 0) {
+                    nombreCompleto = apellidoPaterno[i]+" "+apellidoMaterno[i]+","+nombre[i];
+                    totalSobretiempo += sobretiempo;
+                }
+            }
+        }
+        System.out.println("Se ha consolidado la informacion para: ");
+        System.out.println(nombreCompleto);
+        System.out.println("Total de sobretiempo en el mes " + mesConsolidar + ": " + totalSobretiempo);
     }
+
 
 
 }
