@@ -47,5 +47,45 @@ public class TF_CST {
         fechaRegistro[contadorRegistros] = scanner.next();
     }
 
+    static void consultarDatos(
+            String[] dni,
+            String[] nombre,
+            String[] apellidoPaterno,
+            String[] apellidoMaterno,
+            int[] tipoHorario,
+            String[] horaSalidaReal,
+            String[] fechaRegistro,
+            int contadorRegistros
+    ) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese DNI a consultar: ");
+        String dniConsulta = scanner.next();
+
+        // Crear un arreglo para almacenar los índices de registros encontrados
+        int[] registrosEncontrados = new int[contadorRegistros];
+        int contadorEncontrados = 0;
+
+        for (int i = 0; i < contadorRegistros; i++) {
+            if (dni[i].equals(dniConsulta)) {
+                registrosEncontrados[contadorEncontrados] = i;
+                contadorEncontrados++;
+            }
+        }
+
+        if (contadorEncontrados > 0) {
+            System.out.println("Registros encontrados:");
+            for (int j = 0; j < contadorEncontrados; j++) {
+                int indice = registrosEncontrados[j];
+                System.out.println("DNI: " + dni[indice]);
+                System.out.println("Nombre: " + nombre[indice]);
+                System.out.println("Apellido Paterno: " + apellidoPaterno[indice]);
+                System.out.println("Apellido Materno: " + apellidoMaterno[indice]);
+                System.out.println("Fecha de Registro: " + fechaRegistro[indice]);
+            }
+        } else {
+            System.out.println("No se encontraron registros para el DNI.");
+        }
+    }
+
 
 }
