@@ -117,13 +117,15 @@ public class TF_CST {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Ingrese DNI a consultar: ");
         String dniConsulta = scanner.next();
+        System.out.print("Ingrese la fecha a consultar (AAAA-MM-DD): ");
+        String fechaConsulta = scanner.next();
 
         // Crear un arreglo para almacenar los índices de registros encontrados
         int[] registrosEncontrados = new int[contadorRegistros];
         int contadorEncontrados = 0;
 
         for (int i = 0; i < contadorRegistros; i++) {
-            if (dni[i].equals(dniConsulta)) {
+            if (dni[i].equals(dniConsulta) && fechaRegistro[i].equals(fechaConsulta)) {
                 registrosEncontrados[contadorEncontrados] = i;
                 contadorEncontrados++;
             }
@@ -138,9 +140,43 @@ public class TF_CST {
                 System.out.println("Apellido Paterno: " + apellidoPaterno[indice]);
                 System.out.println("Apellido Materno: " + apellidoMaterno[indice]);
                 System.out.println("Fecha de Registro: " + fechaRegistro[indice]);
+
+                int sobretiempo = calcularSobretiempo(tipoHorario[indice], horaSalidaReal[indice]);
+                if (sobretiempo > 0) {
+                    System.out.println("Sobretiempo (minutos): " + sobretiempo);
+                } else {
+                    System.out.println("No hay sobretiempo.");
+                }
+
+                System.out.println();
             }
         } else {
-            System.out.println("No se encontraron registros para el DNI.");
+            System.out.println("No se encontraron registros para el DNI y la fecha proporcionados.");
+        }
+    }
+
+
+    static int calcularSobretiempo(int tipoHorario, String horaSalidaReal) {
+        int horaSalidaTeorica = 0;
+        switch (tipoHorario) {
+            case 1:
+                horaSalidaTeorica = 16 * 60 + 45; // 16:30
+                break;
+            case 2:
+                horaSalidaTeorica = 17 * 60 + 45; // 17:30
+                break;
+            case 3:
+                horaSalidaTeorica = 18 * 60 + 45; // 18:30
+                break;
+        }
+        int hora = Integer.parseInt(horaSalidaReal.substring(0,2));
+        int minutos = Integer.parseInt(horaSalidaReal.substring(3,5));
+        int horareal = hora * 60 + minutos;
+
+        if (horareal > horaSalidaTeorica) {
+            return horareal - horaSalidaTeorica;
+        } else {
+            return 0;
         }
     }
 
