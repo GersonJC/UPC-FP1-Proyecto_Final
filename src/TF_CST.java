@@ -18,7 +18,7 @@ public class TF_CST {
         int[] tipoHorario = new int[100];
         String[] horaSalidaReal = new String[100];
         String[] fechaRegistro = new String[100];
-        String[] dniVirtual = {"71642745","71642747"};
+        String[] presencial = {"71642745","71642747"};
 
         do {
             System.out.println("Menú Principal:");
@@ -36,14 +36,12 @@ public class TF_CST {
                     System.out.println("---------- Registrar ----------");
                     System.out.println("-------------------------------");
                     contadorSeleccionRegistrar++;
-                    registrarDatos(dni, nombre, apellidoPaterno, apellidoMaterno, tipoHorario, horaSalidaReal, fechaRegistro, contadorRegistros, dniVirtual);
+                    registrarDatos(dni, nombre, apellidoPaterno, apellidoMaterno, tipoHorario, horaSalidaReal, fechaRegistro, contadorRegistros, presencial);
                     contadorRegistros++;
                     //System.out.println("Lo registraso"+ Arrays.toString(dni));
                     //System.out.println("Lo registraso"+ Arrays.toString(nombre));
                     //System.out.println("Lo registraso"+ Arrays.toString(fechaRegistro));
-                    System.out.println("-------------------------------");
-                    System.out.println("    Registrado Exitosamente.   ");
-                    System.out.println("-------------------------------");
+
                     //System.out.println("Registrado Exitosamente.");
                     System.out.print("Desea retornar al menu principal (s/n): ");
                     respuesta = scanner.next();
@@ -142,10 +140,10 @@ public class TF_CST {
         while (!validarModalidad(dniVirtual,dniIngresado)){
             System.out.println("DNI no cumple con la modalidad 'presencial'.");
             System.out.print("Desea continuar (s/n): ");
-            respuesta = scanner.nextLine();
+            respuesta = scanner.next();
             if (respuesta.equals("s")){
                 System.out.print("Ingrese DNI: ");
-                dniIngresado = scanner.nextLine();
+                dniIngresado = scanner.next();
             } else if (respuesta.equals("n")) {
                 return;
             }
@@ -166,6 +164,10 @@ public class TF_CST {
         //scanner.nextLine(); // Consumir el salto de línea
         System.out.print("Ingrese Fecha de Registro (AAAA-MM-DD): ");
         fechaRegistro[contadorRegistros] = scanner.next();
+
+        System.out.println("-------------------------------");
+        System.out.println("    Registrado Exitosamente.   ");
+        System.out.println("-------------------------------");
     }
 
     static boolean validarModalidad(String[] dniVirtual, String dni) {
