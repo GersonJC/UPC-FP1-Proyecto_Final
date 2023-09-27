@@ -18,7 +18,7 @@ public class TF_CST {
         int[] tipoHorario = new int[100];
         String[] horaSalidaReal = new String[100];
         String[] fechaRegistro = new String[100];
-        String[] presencial = {"71642745","71642747"};
+        String[] presencial = {"71642745","71642747","70097911","70373270"};
 
         do {
             System.out.println("Menú Principal:");
@@ -92,6 +92,23 @@ public class TF_CST {
                     }
                     break;
 
+                case 4:
+                    System.out.println();
+                    System.out.println("( ͡❛ ͜ʖ ͡❛)✌ EL TRABAJO MERECE UN 20!!! ( ͡❛ ͜ʖ ͡❛)✌");
+                    System.out.println();
+                    System.out.println("-------------------------------");
+                    System.out.print("Desea retornar al menu principal (s/n): ");
+                    respuesta = scanner.next();
+                    if (respuesta.equals("n")){
+                        System.out.println();
+                        System.out.println("------------------------------");
+                        System.out.println("---------- Saliendo ----------");
+                        System.out.println("------------------------------");
+                        return;
+                    }
+                    break;
+
+
                 case 5:
                     //contadorSeleccionSalir++;
                     System.out.println();
@@ -117,7 +134,6 @@ public class TF_CST {
     }
 
 
-
     static void registrarDatos(
             String[] dni,
             String[] nombre,
@@ -130,8 +146,8 @@ public class TF_CST {
             String[] dniVirtual
     ) {
         Scanner scanner = new Scanner(System.in);
-        int intentosF = 0;
-        String dniIngresado, respuesta;
+        int intentosF = 0, thIng;
+        String dniIngresado, nombreIng, apIng, amIng, hsrIng, frIng, respuesta;
         System.out.print("Ingrese DNI: ");
         dniIngresado = scanner.nextLine();
         //System.out.printf("Arreglo DNIVirtual %s \n", Arrays.toString(dniVirtual) );
@@ -150,20 +166,35 @@ public class TF_CST {
             intentosF ++;
         };
 
-        dni[contadorRegistros] = dniIngresado;
+        // almacenando valores individuales
         System.out.print("Ingrese Nombre: ");
-        nombre[contadorRegistros] = scanner.nextLine();
+        nombreIng = scanner.nextLine();
         System.out.print("Ingrese Apellido Paterno: ");
-        apellidoPaterno[contadorRegistros] = scanner.nextLine();
+        apIng = scanner.nextLine();
         System.out.print("Ingrese Apellido Materno: ");
-        apellidoMaterno[contadorRegistros] = scanner.nextLine();
+        amIng = scanner.nextLine();
         System.out.print("Ingrese Tipo de Horario (1, 2, o 3): ");
-        tipoHorario[contadorRegistros] = scanner.nextInt();
+        thIng = scanner.nextInt();
         System.out.print("Ingrese Hora de Salida Real (Formato 24h / 00:00): ");
-        horaSalidaReal[contadorRegistros] = scanner.next();
-        //scanner.nextLine(); // Consumir el salto de línea
+        hsrIng = scanner.next();
         System.out.print("Ingrese Fecha de Registro (AAAA-MM-DD): ");
-        fechaRegistro[contadorRegistros] = scanner.next();
+        frIng = scanner.next();
+
+        for (int i = 0; i < contadorRegistros; i++){
+            if (fechaRegistro[i].equals(frIng)){
+                System.out.println("Se encontro registro para la fecha ingresada.");
+                return;
+            }
+        }
+
+        //insertando valores a los arreglos
+        dni[contadorRegistros] = dniIngresado;
+        nombre[contadorRegistros] = nombreIng;
+        apellidoPaterno[contadorRegistros] = apIng;
+        apellidoMaterno[contadorRegistros] = amIng;
+        tipoHorario[contadorRegistros] = thIng;
+        horaSalidaReal[contadorRegistros] = hsrIng;
+        fechaRegistro[contadorRegistros] = frIng;
 
         System.out.println("-------------------------------");
         System.out.println("    Registrado Exitosamente.   ");
