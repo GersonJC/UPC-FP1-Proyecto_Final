@@ -87,5 +87,18 @@ public class TF_CST {
         }
     }
 
+    static void consolidarSobretiempo(
+            String[] dni,
+            String[] nombre,
+            String[] apellidoPaterno,
+            String[] apellidoMaterno,
+            int[] tipoHorario,
+            String[] horaSalidaReal,
+            String[] fechaRegistro,
+            int contadorRegistros
+    ) {
+        System.out.println("Se ha consolidado la informacion.");
+    }
+
 
 }
